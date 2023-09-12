@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+
+
+</head>
+<body>
+
+<!--<div th:switch="${messageList}">-->
+<!--    <h2 th:case="null">No messages yet!</h2>-->
+<!--    <div th:case="*">-->
+<!--        <h2>Messages</h2>-->
+<!--        <div th:each="message : ${messageList}">-->
+<!--            <a th:text="${message.description}">description</a>-->
+<!--            <a th:href="@{/deleteMessage/{id}(id=${message.id})}"-->
+<!--               class="btn btn-danger">Delete</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <p><a href="/addNewMessage">Add a new message</a></p>-->
+<!--</div>-->
+
+<div th:switch="${message}">
+    <h2 th:case="null">No messages yet!</h2>
+    <div th:case="*">
+        <h2>Messages</h2>
+        <div th:text="${message}">description</div>
+    </div>
+    <p><a href="/addNewMessage">Add a new message</a></p>
+</div>
+</body>
+</html>
