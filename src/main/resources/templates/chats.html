@@ -20,7 +20,9 @@
     </div>
     <p><a href="/addNew">Add a new chat</a></p>
     <br/>
-    <a href="/logout">Logout</a>
+    <form th:action="@{/logout}" th:method="POST">
+        <input type="submit" value="Logout">
+    </form>
 </div>
 <br/>
 <hr/>
