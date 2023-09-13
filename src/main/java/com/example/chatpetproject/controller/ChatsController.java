@@ -26,7 +26,8 @@ public class ChatsController {
 
     @GetMapping("/chats")
     public String getAllChats(@AuthenticationPrincipal UserResponse user, Model model) {
-        List<Chat> chatList = user.getUser().getChats();
+        UUID userId = user.getUser().getId();
+        List<Chat> chatList = chatService.findAllByUserId(userId);
         System.out.println();
         model.addAttribute("chatList", chatList);
         return "chats";
@@ -46,7 +47,7 @@ public class ChatsController {
         }
         User user1 = user.getUser();
         chatService.addChat(chat, user1);
-        return "redirect:chats";
+        return "redirect:/chats";
     }
 
 
@@ -82,7 +83,7 @@ public class ChatsController {
     @GetMapping("/deleteChat/{id}")
     public String deleteChatById(@PathVariable("id") UUID id) {
         chatService.deleteChatById(id);
-        return "redirect:chats";
+        return "redirect:/chats";
     }
 
     @GetMapping("/deleteMessage/{id}")

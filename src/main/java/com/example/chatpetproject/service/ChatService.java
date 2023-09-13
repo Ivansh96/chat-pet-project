@@ -27,6 +27,10 @@ public class ChatService {
         return chatRepository.findAll();
     }
 
+    public List<Chat> findAllByUserId(UUID userId) {
+        return chatRepository.findAllByUserId(userId);
+    }
+
     public void addChat(Chat chat, User user) {
         user.getChats().add(chat);
         userRepository.save(user);
