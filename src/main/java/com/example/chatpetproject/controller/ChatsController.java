@@ -28,7 +28,6 @@ public class ChatsController {
     public String getAllChats(@AuthenticationPrincipal UserResponse user, Model model) {
         UUID userId = user.getUser().getId();
         List<Chat> chatList = chatService.findAllByUserId(userId);
-        System.out.println();
         model.addAttribute("chatList", chatList);
         return "chats";
     }
