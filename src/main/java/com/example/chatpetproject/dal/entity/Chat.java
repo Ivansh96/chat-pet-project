@@ -25,13 +25,13 @@ public class Chat {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @Builder.Default
-    @OneToMany(mappedBy = "chat")
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "chat_id")
     private List<Message> messages = new ArrayList<>();
 
 

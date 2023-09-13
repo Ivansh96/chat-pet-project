@@ -13,7 +13,7 @@
     <div th:case="*">
         <h2>Chats</h2>
         <div th:each="chat : ${chatList}">
-            <a th:href="@{/chats/{id}(id=${chat.getId()})}" th:text="${chat.name}">chat</a>
+            <a th:href="@{/chats/{id}(id=${chat.id})}" th:text="${chat.name}">chat</a>
             <a th:href="@{/deleteChat/{id}(id=${chat.id})}"
                class="btn btn-danger">Delete</a>
         </div>

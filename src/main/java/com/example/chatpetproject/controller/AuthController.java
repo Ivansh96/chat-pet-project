@@ -23,11 +23,6 @@ public class AuthController {
     private final RegistrationService registrationService;
 
 
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
-
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user") User user) {
         return "registration";
@@ -44,5 +39,10 @@ public class AuthController {
         }
 
         return "redirect:login";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 }

@@ -20,14 +20,15 @@ public class User {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     private String username;
 
     @Column(name = "password")
     private String password;
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private List<Chat> chats = new ArrayList<>();
 
 }

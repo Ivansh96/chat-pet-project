@@ -21,8 +21,4 @@ public class Message extends AuditableEntity<UUID> {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chat chat;
-
 }
