@@ -56,9 +56,12 @@ public class ChatsController {
     }
 
     @GetMapping("/chats/{id}")
-    public String getMessagesForChat(@ModelAttribute("chat") Chat chat, Model model) {
+    public String getMessagesForChat(@PathVariable("id") UUID id,
+                                     @ModelAttribute("chat") Chat chat,
+                                     Model model) {
 
-        List<Message> messages = chat.getMessages();
+        Chat chatForMessages = chatService.findById(id);
+        List<Message> messages = chatForMessages.getMessages();
         model.addAttribute("messages", messages);
         model.addAttribute("chat", chat);
         return "messages";

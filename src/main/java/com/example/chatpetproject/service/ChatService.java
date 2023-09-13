@@ -23,6 +23,11 @@ public class ChatService {
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
 
+    public Chat findById(UUID id) {
+        Optional<Chat> chat = chatRepository.findById(id);
+        return chat.orElseThrow();
+    }
+
     public List<Chat> findAllByUserId(UUID userId) {
         return chatRepository.findAllByUserId(userId);
     }
