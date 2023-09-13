@@ -47,7 +47,7 @@ public class ChatService {
         chatRepository.deleteById(id);
     }
 
-    public void deleteMessageById(UUID id) {
-        messageRepository.deleteById(id);
-    }
+//    public void deleteMessageById(UUID id) {
+//        messageRepository.deleteById(id);
+//    }
 }

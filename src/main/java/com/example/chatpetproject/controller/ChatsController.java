@@ -95,9 +95,9 @@ public class ChatsController {
         return "redirect:/chats";
     }
 
-    @GetMapping("/deleteMessage/{id}")
-    public String deleteMessageById(@PathVariable("id") UUID id) {
-        chatService.deleteMessageById(id);
-        return "redirect:/";
-    }
+//    @GetMapping("/deleteMessage/{id}")
+//    public String deleteMessageById(@PathVariable("id") UUID id) {
+//        chatService.deleteMessageById(id);
+//        return "redirect:/";
+//    }
 }
