@@ -22,60 +22,67 @@ import java.util.UUID;
 public class ChatsController {
 
     private final ChatService chatService;
+    private final UserService userService;
 
 
     @GetMapping("/chats")
-    public String getAllChats(@AuthenticationPrincipal UserResponse user, Model model) {
-        UUID userId = user.getUser().getId();
-        List<Chat> chatList = chatService.findAllByUserId(userId);
+    public String getAllChats(Principal principal, Model model) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+        List<Chat> chatList = chatService.findAllByUserId(user.getId());
         model.addAttribute("chatList", chatList);
+        model.addAttribute("user", user);
         return "chats";
     }
 
-    @GetMapping("/addNew")
-    public String addChat(@ModelAttribute("chat") Chat chat) {
+    @GetMapping("/addNew/{userId}")
+    public String addChat(@ModelAttribute("chat") Chat chat,
+                          @PathVariable("userId") UUID userId,
+                          Model model) {
+        model.addAttribute("userId", userId);
         return "newChat";
     }
 
-        @PostMapping("/saveChat")
-    public String addNewChat(@AuthenticationPrincipal UserResponse user,
+    @PostMapping("/saveChat/{userId}")
+    public String addNewChat(@PathVariable("userId") UUID userId,
                              @ModelAttribute("chat") Chat chat,
                              BindingResult result) {
         if (result.hasErrors()) {
             return "newChat";
         }
-        User user1 = user.getUser();
-        chatService.addChat(chat, user1);
+        User user = userService.findById(userId);
+        chatService.addChat(chat, user);
         return "redirect:/chats";
     }
 
-
     @GetMapping("/chats/{id}")
-    public String getMessagesForChat(@PathVariable("id") UUID id, Model model) {
-        String description = null;
-        Chat chat = chatService.findById(id);
-        for (int i = 0; i < chat.getMessages().size(); i++) {
-            description = chat.getMessages().get(i).getDescription();
-        }
-        model.addAttribute("message", description);
+    public String getMessagesForChat(@ModelAttribute("chat") Chat chat, Model model) {
+
+        List<Message> messages = chat.getMessages();
+        model.addAttribute("messages", messages);
+        model.addAttribute("chat", chat);
         return "messages";
     }
 
-    @GetMapping("/addNewMessage/{id}")
-    public String addMessage(@ModelAttribute("message") Message message) {
+    @GetMapping("/addNewMessage/{chatId}")
+    public String addMessage(@ModelAttribute("message") Message message,
+                             @PathVariable("chatId") UUID chatId,
+                             Model model) {
+        model.addAttribute("chatId", chatId);
         return "newMessage";
     }
 
-    @PostMapping("/saveMessage/{id}")
+    @PostMapping("/messages/{chatId}")
     public String addNewMessage(@ModelAttribute("message") Message message,
-                                @PathVariable("id") UUID id,
+                                @PathVariable("chatId") UUID chatId,
                                 BindingResult result) {
+
 
         if (result.hasErrors()) {
             return "newMessage";
         }
-        chatService.addMessage(message, id);
-        return "redirect:/getMessages/{id}";
+        chatService.addMessage(message, chatId);
+        return "redirect:/chats";
     }
 
 

@@ -18,7 +18,7 @@
                class="btn btn-danger">Delete</a>
         </div>
     </div>
-    <p><a href="/addNew">Add a new chat</a></p>
+    <p><a th:href="@{/addNew/{userId}(userId=${user.getId()})}">Add a new chat</a></p>
     <br/>
     <form th:action="@{/logout}" th:method="POST">
         <input type="submit" value="Logout">

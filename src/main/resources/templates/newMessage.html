@@ -6,7 +6,8 @@
 
 </head>
 <body>
-<form th:method="POST" th:action="@{/saveMessage/{id}}" th:object="${message}">
+<form th:method="POST" th:action="@{/messages/{chatId}(chatId=${chatId})}"
+      th:object="${message}">
     <label for="description">New Message</label>
     <input type="text" th:field="*{description}" id="description">
     <br/>

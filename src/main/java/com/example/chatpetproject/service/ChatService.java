@@ -23,10 +23,6 @@ public class ChatService {
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
 
-    public List<Chat> findAllChats() {
-        return chatRepository.findAll();
-    }
-
     public List<Chat> findAllByUserId(UUID userId) {
         return chatRepository.findAllByUserId(userId);
     }
@@ -36,30 +32,10 @@ public class ChatService {
         userRepository.save(user);
     }
 
-
-    public Chat findById(UUID id) {
-        //todo check for null
-        return chatRepository.findChatById(id);
-    }
-
-    public Optional<Chat> findChatByName(String name) {
-        return Optional.ofNullable(chatRepository.findByName(name))
-                .orElseThrow();
-        //todo Custom Exception
-    }
-
-    public List<Message> getChatMessages(UUID chatId) {
-
-        Optional<Chat> chat = chatRepository.findById(chatId);
-        List<Message> messages = new ArrayList<>();
-        if (chat.isPresent()) {
-            messages = chat.get().getMessages();
-        }
-        return messages;
-    }
-
     public void addMessage(Message message, UUID chatId) {
-
+        Chat chat = chatRepository.findChatById(chatId);
+        chat.getMessages().add(message);
+        chatRepository.save(chat);
     }
 
     public void deleteChatById(UUID id) {

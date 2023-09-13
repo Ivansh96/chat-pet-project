@@ -7,27 +7,24 @@
 
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <h1>Messages</h1>
 
-<!--<div th:switch="${messageList}">-->
-<!--    <h2 th:case="null">No messages yet!</h2>-->
-<!--    <div th:case="*">-->
-<!--        <h2>Messages</h2>-->
-<!--        <div th:each="message : ${messageList}">-->
-<!--            <a th:text="${message.description}">description</a>-->
-<!--            <a th:href="@{/deleteMessage/{id}(id=${message.id})}"-->
-<!--               class="btn btn-danger">Delete</a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <p><a href="/addNewMessage">Add a new message</a></p>-->
-<!--</div>-->
-
-<div th:switch="${message}">
-    <h2 th:case="null">No messages yet!</h2>
-    <div th:case="*">
-        <h2>Messages</h2>
-        <div th:text="${message}">description</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Message text</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.description}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <p><a href="/addNewMessage">Add a new message</a></p>
+    <p><a th:href="@{/addNewMessage/{chatId}(chatId=${chat.id})}">Add a new message</a></p>
 </div>
 </body>
 </html>

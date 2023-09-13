@@ -6,7 +6,7 @@
 
 </head>
 <body>
-<form th:method="POST" th:action="@{/saveChat}" th:object="${chat}">
+<form th:method="POST" th:action="@{/saveChat/{userId}(userId=${userId})}" th:object="${chat}">
     <label for="name">Enter name</label>
     <input type="text" th:field="*{name}" id="name">
     <br/>
