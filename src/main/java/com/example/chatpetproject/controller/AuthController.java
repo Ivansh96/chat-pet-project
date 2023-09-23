@@ -25,12 +25,14 @@ public class AuthController {
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user") User user) {
+        String name = "Ivan";
         return "registration";
     }
 
     @PostMapping("/registration")
     public String performRegistration(@ModelAttribute("user") @Valid User user,
                                       BindingResult bindingResult) {
+        String lastname = "Petrov";
         userValidator.validate(user, bindingResult);
         registrationService.registerUser(user);
 
