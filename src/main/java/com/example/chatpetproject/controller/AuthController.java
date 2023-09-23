@@ -25,6 +25,7 @@ public class AuthController {
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user") User user) {
+        String name = "Ivan";
         return "registration";
     }
 
